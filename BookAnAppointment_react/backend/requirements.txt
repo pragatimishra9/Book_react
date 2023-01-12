@@ -1,0 +1,9 @@
+celery
+Django
+django-cors-headers
+django-filter
+djangorestframework
+eventlet
+Pillow
+redis
+python-decouple

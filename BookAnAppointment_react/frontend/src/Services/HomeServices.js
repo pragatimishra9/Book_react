@@ -43,15 +43,45 @@ export function handleSelectedTimeSlot(e, setSelectedTimeSlot) {
 }
 
 export async function bookAppointment(currentDoctorId, bookingDate, selectedTimeSlot, patientName, patientEmail, patientContact) {
-    let data = {
-        doctor_id: currentDoctorId,
-        date: bookingDate,
-        time_slot: selectedTimeSlot,
-        patient_name: patientName,
-        patient_email: patientEmail,
-        patient_contact: patientContact,
-    };
-    const body = JSON.stringify(data);
-    const res = await axios.post(Request.bookAppointment, body, config);
-    alert(res.data.message);
+
+    if (bookingDate === "") {
+        alert("Please Select a Date");
+    } else if (selectedTimeSlot === "") {
+        alert("please select a timeslot");
+    } else if (patientName === "") {
+        alert("Please enter your name")
+    } else if (patientEmail === "" | patientEmail.split('@').length != 2) {
+        alert("please enter correct email")
+    } else if (patientContact === "" | patientContact.match(/^[0-9]+$/) === null | patientContact.length < 10) {
+        alert(" please Enter correct contact")
+    } else {
+        let data = {
+            doctor_id: currentDoctorId,
+            date: bookingDate,
+            time_slot: selectedTimeSlot,
+            patient_name: patientName,
+            patient_email: patientEmail,
+            patient_contact: patientContact,
+        };
+        const body = JSON.stringify(data);
+        const res = await axios.post(Request.bookAppointment, body, config);
+        alert(res.data.message);
+    }
+
+}
+
+
+export function getToday() {
+    let today, dd, mm, yyyy;
+    today = new Date();
+    dd = today.getDate();
+    if (parseInt(dd) < 10) {
+        dd = "0" + dd;
+    }
+    mm = today.getMonth() + 1;
+    if (parseInt(mm) < 10) {
+        mm = "0" + mm;
+    }
+    yyyy = today.getFullYear();
+    return yyyy + "-" + mm + "-" + dd;
 }

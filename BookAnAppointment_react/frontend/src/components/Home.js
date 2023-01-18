@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Request from '../Actions/Request';
 import Navbar from './Navbar';
+import DatePicker from "react-datepicker";
 import { config } from '../Services/Constants';
-import { fillDoctorBookingDetails, handleSelectedTimeSlot, bookAppointment } from '../Services/HomeServices';
+import { fillDoctorBookingDetails, handleSelectedTimeSlot, bookAppointment, getToday } from '../Services/HomeServices';
+import moment from 'moment';
 
 
 function Home() {
@@ -61,7 +63,8 @@ function Home() {
                         <div class="modal-body">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">Select Date</span>
-                                <input type="date" class="form-control" value={bookingDate} onChange={(e) => { setBookingDate(e.target.value) }} />
+
+                                <input type="date" class="form-control" min={getToday()} value={bookingDate} onChange={(e) => { setBookingDate(e.target.value) }} />
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">Enter Name</span>
